@@ -1,0 +1,41 @@
+package com.sample
+ 
+import com.sample.Presenter;
+import com.sample.DialogView;
+
+global Presenter presenter;
+ 
+rule "SciFi or Fantasy"
+    when
+       
+    then
+    	ModelQuestion model = new ModelQuestion("SciFi or Fantasy", new String[]{"SciFi", "Fantasy"});
+        String chosenAnswer = new DialogView(model).start();
+        model.setChosenAnswer(chosenAnswer);
+        insert(model);
+        presenter.logAnswer(model, chosenAnswer);
+end
+
+rule "SciFi"
+    when
+        modelPrevious : ModelQuestion(getContent() == "SciFi or Fantasy" && getChosenAnswer() == "SciFi")
+    then
+    	ModelQuestion model = new ModelQuestion("Samoloty czy statki", new String[]{"Samoloty", "Statki"});
+        String chosenAnswer = new DialogView(model).start();
+        model.setChosenAnswer(chosenAnswer);
+        insert(model);
+        presenter.logAnswer(model, chosenAnswer);
+        presenter.displayFinalScreen(chosenAnswer, "src/main/resources/aed.png");
+end
+
+rule "Fantasy"
+    when       
+        modelPrevious : ModelQuestion(getContent() == "SciFi or Fantasy" && getChosenAnswer() == "Fantasy")
+    then
+    	ModelQuestion model = new ModelQuestion("Smoki czy koty", new String[]{"Smoki", "koty"});
+        String chosenAnswer = new DialogView(model).start();
+        model.setChosenAnswer(chosenAnswer);     
+        insert(model);
+        presenter.logAnswer(model, chosenAnswer);    
+        presenter.displayFinalScreen(chosenAnswer, "src/main/resources/photo.jpg");
+end
