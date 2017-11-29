@@ -24,10 +24,9 @@ public class DialogView extends JDialog implements ActionListener {
 	
 	private ModelQuestion model;
 	
-    public DialogView (ModelQuestion model) {       
-
+    public DialogView (String question, String[] answerList) {       
+    	model = new ModelQuestion(question, answerList);
     	setModal(true);
-    	this.model = model;
         mainPanel = new JPanel(new GridBagLayout());
 		buttonPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -35,12 +34,12 @@ public class DialogView extends JDialog implements ActionListener {
 		constraints.weightx = 0.5;
 		constraints.gridx = 0;
 		constraints.gridy = 0; 
-		contentDescription = new JLabel(model.getContent());
+		contentDescription = new JLabel(question);
 		JPanel contentPanel = new JPanel();
 		contentPanel.add(contentDescription);
 		mainPanel.add(contentPanel, constraints);
 	
-		addButtons(model.getAnswerList());
+		addButtons(answerList);
 		this.add(mainPanel);
 		pack();
     	Toolkit toolkit = Toolkit.getDefaultToolkit();

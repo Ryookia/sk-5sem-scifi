@@ -4,38 +4,45 @@ import com.sample.Presenter;
 import com.sample.DialogView;
 
 global Presenter presenter;
+
+
+declare Question
+	question : String
+	answerList : String[]
+	answer : String
+end
+
+function Question resolveQuestion(String question, String[] answerList, Presenter presenter){
+			Question newQuestion = new Question();
+			newQuestion.setQuestion(question);
+			newQuestion.setAnswerList(answerList);
+	        newQuestion.setAnswer(new DialogView(question, answerList).start());
+	        presenter.logAnswer(question, answerList, newQuestion.getAnswer());
+	        return newQuestion;
+}
  
 rule "SciFi or Fantasy"
     when
        
     then
-    	ModelQuestion model = new ModelQuestion("SciFi or Fantasy", new String[]{"SciFi", "Fantasy"});
-        String chosenAnswer = new DialogView(model).start();
-        model.setChosenAnswer(chosenAnswer);
-        insert(model);
-        presenter.logAnswer(model, chosenAnswer);
+    	insert (resolveQuestion("SciFi or Fantasy", new String[]{"SciFi", "Fantasy"}, presenter));
 end
 
 rule "SciFi"
     when
-        modelPrevious : ModelQuestion(getContent() == "SciFi or Fantasy" && getChosenAnswer() == "SciFi")
+        questionPrevious : Question(question == "SciFi or Fantasy" && answer == "SciFi")
     then
-    	ModelQuestion model = new ModelQuestion("Samoloty czy statki", new String[]{"Samoloty", "Statki"});
-        String chosenAnswer = new DialogView(model).start();
-        model.setChosenAnswer(chosenAnswer);
-        insert(model);
-        presenter.logAnswer(model, chosenAnswer);
-        presenter.displayFinalScreen(chosenAnswer, "src/main/resources/aed.png");
+    	Question result = resolveQuestion("Samoloty czy statki", new String[]{"Samoloty", "Statki"}, presenter);
+        insert (result);
+        presenter.displayFinalScreen(result.getAnswer(), "src/main/resources/aed.png");
 end
 
 rule "Fantasy"
     when       
-        modelPrevious : ModelQuestion(getContent() == "SciFi or Fantasy" && getChosenAnswer() == "Fantasy")
+        questionPrevious : Question(question == "SciFi or Fantasy" && answer == "Fantasy")
     then
-    	ModelQuestion model = new ModelQuestion("Smoki czy koty", new String[]{"Smoki", "koty"});
-        String chosenAnswer = new DialogView(model).start();
-        model.setChosenAnswer(chosenAnswer);     
-        insert(model);
-        presenter.logAnswer(model, chosenAnswer);    
-        presenter.displayFinalScreen(chosenAnswer, "src/main/resources/photo.jpg");
+    	Question result = resolveQuestion("Smoki czy koty", new String[]{"Smoki", "koty"}, presenter);
+        insert (result); 
+        presenter.displayFinalScreen(result.getAnswer(), "src/main/resources/photo.jpg");
 end
+

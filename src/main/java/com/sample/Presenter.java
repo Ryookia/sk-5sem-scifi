@@ -67,9 +67,9 @@ public class Presenter {
 		view.addButtons(answerList);
 	}
 	
-	public void logAnswer(ModelQuestion modelQuestion, String answer) {
-		model.setContent(modelQuestion.getContent());
-		model.setAnswers(modelQuestion.getAnswerList());
+	public void logAnswer(String question, String[] answerList, String answer) {
+		model.setContent(question);
+		model.setAnswers(answerList);
 		model.logAnswer(answer);
 	}
 	
