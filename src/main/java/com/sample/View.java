@@ -136,12 +136,16 @@ public class View extends JFrame implements ActionListener {
 		finalText.setOpaque(true);
 		JButton exitButton = new JButton(Resources.Strings.exitButtonDesc);
 		JButton logButton = new JButton(Resources.Strings.logButtonDesc);
+		JButton retryButton = new JButton(Resources.Strings.retryButtonDesc);
 		exitButton.setActionCommand(Resources.Strings.exitButtonDesc);
 		exitButton.addActionListener(this);
 		logButton.setActionCommand(Resources.Strings.logButtonDesc);
 		logButton.addActionListener(this);
+		retryButton.setActionCommand(Resources.Strings.retryButtonDesc);
+		retryButton.addActionListener(this);
 		add(finalText);
 		add(exitButton);
+		add(retryButton);
 		add(logButton);
 		invalidate();
 		validate();

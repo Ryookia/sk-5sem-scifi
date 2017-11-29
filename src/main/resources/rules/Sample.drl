@@ -25,24 +25,731 @@ rule "SciFi or Fantasy"
     when
        
     then
-    	insert (resolveQuestion("SciFi or Fantasy", new String[]{"SciFi", "Fantasy"}, presenter));
+    	insert (resolveQuestion("Where should I start?", new String[]{"SciFi", "Fantasy"}, presenter));
 end
 
-rule "SciFi"
+rule "Fantasy 1"
     when
-        questionPrevious : Question(question == "SciFi or Fantasy" && answer == "SciFi")
+       	previousQuestion : Question(
+       	question == "Where should I start?"
+       	&& answer == "Fantasy")
     then
-    	Question result = resolveQuestion("Samoloty czy statki", new String[]{"Samoloty", "Statki"}, presenter);
-        insert (result);
-        presenter.displayFinalScreen(result.getAnswer(), "src/main/resources/aed.png");
+    	insert (resolveQuestion(
+    	"Are you going to be upset when you don't find Harry Potter?", 
+    	new String[]{"Give me more precocious lads at school of magic, please.", 
+    	"I know where to find him if I need him."}, 
+    	presenter));
 end
 
-rule "Fantasy"
-    when       
-        questionPrevious : Question(question == "SciFi or Fantasy" && answer == "Fantasy")
+rule "Fantasy 1 End"
+    when
+       	previousQuestion : Question(
+       	question == "Are you going to be upset when you don't find Harry Potter?" 
+       	&& answer == "Give me more precocious lads at school of magic, please.")
     then
-    	Question result = resolveQuestion("Smoki czy koty", new String[]{"Smoki", "koty"}, presenter);
-        insert (result); 
-        presenter.displayFinalScreen(result.getAnswer(), "src/main/resources/photo.jpg");
+    	presenter.displayFinalScreen("The Kingkiller Chronicles Patrick Rothfuss", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 2"
+    when
+       	previousQuestion : Question(
+       	question == "Are you going to be upset when you don't find Harry Potter?"
+       	&& answer == "I know where to find him if I need him.")
+    then
+    	insert (resolveQuestion(
+    	"Are you new to the fantasy genre?", 
+    	new String[]{"I am as yet unfamilliar with your tropes. Do your worst.", 
+    	"Does the Wizard of Oz count?", 
+    	"I'm what you call, experienced."}, 
+    	presenter));
+end
+
+rule "Fantasy 2 End"
+    when
+       	previousQuestion : Question(
+       	question == "Are you new to the fantasy genre?" 
+       	&& answer == "I am as yet unfamilliar with your tropes. Do your worst.")
+    then
+    	presenter.displayFinalScreen("The Lord of the Rings J.R.R Tolkien", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 2 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Are you new to the fantasy genre?" 
+       	&& answer == "Does the Wizard of Oz count?")
+    then
+    	presenter.displayFinalScreen("Wicked Gregory Maguire", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 3"
+    when
+       	previousQuestion : Question(
+       	question == "Are you new to the fantasy genre?"
+       	&& answer == "I'm what you call, experienced.")
+    then
+    	insert (resolveQuestion(
+    	"Like the Arthurian legend?", 
+    	new String[]{"I own The Sword and the Stone on DVD and VHS", 
+    	"No"}, 
+    	presenter));
+end
+
+rule "Fantasy 4"
+    when
+       	previousQuestion : Question(
+       	question == "Like the Arthurian legend?"
+       	&& answer == "I own The Sword and the Stone on DVD and VHS")
+    then
+    	insert (resolveQuestion(
+    	"Which character do you like best?", 
+    	new String[]{"Arthur", 
+    	"Merlin", 
+    	"Morgan Le Faye"}, 
+    	presenter));
+end
+
+rule "Fantasy 4 End"
+    when
+       	previousQuestion : Question(
+       	question == "Which character do you like best?" 
+       	&& answer == "Arthur")
+    then
+    	presenter.displayFinalScreen("The Once and Future King T.H White", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 4 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Which character do you like best?" 
+       	&& answer == "Merlin")
+    then
+    	presenter.displayFinalScreen("The Crystal Cave Mary Steward", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 4 End3"
+    when
+       	previousQuestion : Question(
+       	question == "Which character do you like best?" 
+       	&& answer == "Morgan Le Faye")
+    then
+    	presenter.displayFinalScreen("The Mists of Avalon Marion Zimmer Bradley", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 5"
+    when
+       	previousQuestion : Question(
+       	question == "Like the Arthurian legend?"
+       	&& answer == "No")
+    then
+    	insert (resolveQuestion(
+    	"Looking for modern-day settings?", 
+    	new String[]{"I'm a city-person", 
+    	"I'm partial to small towns", 
+    	"Let's find another world, this one's depressing."}, 
+    	presenter));
+end
+
+rule "Fantasy 5 End"
+    when
+       	previousQuestion : Question(
+       	question == "Looking for modern-day settings?" 
+       	&& answer == "I'm partial to small towns")
+    then
+    	presenter.displayFinalScreen("Something Wicked This Way Comes Ray Bradbury", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 6"
+    when
+       	previousQuestion : Question(
+       	question == "Looking for modern-day settings?" 
+       	&& answer == "I'm a city-person")
+    then
+    	insert (resolveQuestion(
+    	"Gods or people under the streets?", 
+    	new String[]{"Modren Mythology", 
+    	"A world beneath the city."}, 
+    	presenter));
+end
+
+rule "Fantasy 6 End"
+    when
+       	previousQuestion : Question(
+       	question == "Gods or people under the streets?" 
+       	&& answer == "Modren Mythology")
+    then
+    	presenter.displayFinalScreen("American Gods Neil Gaiman", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 6 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Gods or people under the streets?" 
+       	&& answer == "A world beneath the city.")
+    then
+    	presenter.displayFinalScreen("Neverwhere Neil Gaiman", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 7"
+    when
+       	previousQuestion : Question(
+       	question == "Looking for modern-day settings?" 
+       	&& answer == "Let's find another world, this one's depressing.")
+    then
+    	insert (resolveQuestion(
+    	"Fan of Westerns?", 
+    	new String[]{"I'm prone to don chaps and walk the streets at high noon.", 
+    	"Too dusty. And I'm not much of a card player."}, 
+    	presenter));
+end
+
+rule "Fantasy 7 End"
+    when
+       	previousQuestion : Question(
+       	question == "Fan of Westerns?" 
+       	&& answer == "I'm prone to don chaps and walk the streets at high noon.")
+    then
+    	presenter.displayFinalScreen("The Dark Tower Stephen King", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 8"
+    when
+       	previousQuestion : Question(
+       	question == "Fan of Westerns?" 
+       	&& answer == "Too dusty. And I'm not much of a card player.")
+    then
+    	insert (resolveQuestion(
+    	"Animals more your thing?", 
+    	new String[]{"I donate to the WWF. Not the wrestling one.", 
+    	"I have allergies."}, 
+    	presenter));
+end
+
+rule "Fantasy 9"
+    when
+       	previousQuestion : Question(
+       	question == "Animals more your thing?" 
+       	&& answer == "I donate to the WWF. Not the wrestling one.")
+    then
+    	insert (resolveQuestion(
+    	"What's your ideal pet?", 
+    	new String[]{"Unicorn", 
+    	"Bunny", 
+    	"Dragon"}, 
+    	presenter));
+end
+
+rule "Fantasy 9 End"
+    when
+       	previousQuestion : Question(
+       	question == "What's your ideal pet?" 
+       	&& answer == "Unicorn")
+    then
+    	presenter.displayFinalScreen("The Last Unicorn Peter S. Beagle", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 9 End2"
+    when
+       	previousQuestion : Question(
+       	question == "What's your ideal pet?" 
+       	&& answer == "Bunny")
+    then
+    	presenter.displayFinalScreen("Watership Down Richard Adams", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 9 End3"
+    when
+       	previousQuestion : Question(
+       	question == "What's your ideal pet?" 
+       	&& answer == "Dragon")
+    then
+    	presenter.displayFinalScreen("Dragonflight Anne McCaffrey", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 10"
+    when
+       	previousQuestion : Question(
+       	question == "Animals more your thing?" 
+       	&& answer == "I have allergies.")
+    then
+    	insert (resolveQuestion(
+    	"How about some alternate history?", 
+    	new String[]{"I'm a revisionist myself.", 
+    	"I never paid any attention in history class."}, 
+    	presenter));
+end
+
+rule "Fantasy 10 End"
+    when
+       	previousQuestion : Question(
+       	question == "How about some alternate history?" 
+       	&& answer == "I have allergies.")
+    then
+    	presenter.displayFinalScreen("No more branching, sorry", "src/main/resources/underconstruction.png");
+end
+
+rule "Fantasy 10 End1"
+    when
+       	previousQuestion : Question(
+       	question == "How about some alternate history?" 
+       	&& answer == "I never paid any attention in history class.")
+    then
+    	presenter.displayFinalScreen("No more branching, sorry", "src/main/resources/underconstruction.png");
+end
+
+rule "SciFi 1"
+    when
+       	previousQuestion : Question(
+       	question == "Where should I start?"
+       	&& answer == "SciFi")
+    then
+    	insert (resolveQuestion(
+    	"Cyberpunk?", 
+    	new String[]{"I love that Billy Idol album", 
+    	"Can I get the geek without the bleak?", 
+    	"I get enough \" cyber punkt \" on Facebook."}, 
+    	presenter));
+end
+
+rule "SciFi 1 End"
+    when
+       	previousQuestion : Question(
+       	question == "Cyberpunk?" 
+       	&& answer == "Can I get the geek without the bleak?")
+    then
+    	presenter.displayFinalScreen("Cryptonomicon Neal Stephenson", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 2"
+    when
+       	previousQuestion : Question(
+       	question == "Cyberpunk?"
+       	&& answer == "I love that Billy Idol album")
+    then
+    	insert (resolveQuestion(
+    	"Gritty Noir, Neo-victorian or Samurai?", 
+    	new String[]{"Noir", "Funny Hats Please", "Samurai"}, 
+    	presenter));
+end
+
+rule "SciFi 2 End"
+    when
+       	previousQuestion : Question(
+       	question == "Gritty Noir, Neo-victorian or Samurai?" 
+       	&& answer == "Noir")
+    then
+    	presenter.displayFinalScreen("Neuromancer William Gibson", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 2 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Gritty Noir, Neo-victorian or Samurai?" 
+       	&& answer == "Funny Hats Please")
+    then
+    	presenter.displayFinalScreen("The Diamond Age Neal Stephenson", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 2 End3"
+    when
+       	previousQuestion : Question(
+       	question == "Gritty Noir, Neo-victorian or Samurai?" 
+       	&& answer == "Samurai")
+    then
+    	presenter.displayFinalScreen("Snow Crash Neal Stephenson", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 3"
+    when
+       	previousQuestion : Question(
+       	question == "Cyberpunk?"
+       	&& answer == "I get enough \" cyber punkt \" on Facebook.")
+    then
+    	insert (resolveQuestion(
+    	"Ready to blast into space?", 
+    	new String[]{"The start are my destination (Can't believe they left that one off.)", 
+    	"Let's just stay close. I'm new at this.", 
+    	"I like to keep my feet on the ground."}, 
+    	presenter));
+end
+
+rule "SciFi 3 End"
+    when
+       	previousQuestion : Question(
+       	question == "Ready to blast into space?"
+       	&& answer == "Let's just stay close. I'm new at this.")
+    then
+    	presenter.displayFinalScreen("2001: A Space Odyssey Arthur C. Clarke", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 4"
+    when
+       	previousQuestion : Question(
+       	question == "Ready to blast into space?"
+       	&& answer == "I like to keep my feet on the ground.")
+    then
+    	insert (resolveQuestion(
+    	"Don't you mean under the ground?", 
+    	new String[]{"Give me some subterranean action.", 
+    	"I said on, smart guy."}, 
+    	presenter));
+end
+
+rule "SciFi 5"
+    when
+       	previousQuestion : Question(
+       	question == "Don't you mean under the ground?"
+       	&& answer == "Give me some subterranean action.")
+    then
+    	insert (resolveQuestion(
+    	"Wet or Dry?", 
+    	new String[]{"Underground", 
+    	"Under the sea Under the sea Darling it's better Down where it's wetter"}, 
+    	presenter));
+end
+
+rule "SciFi 5 End"
+    when
+       	previousQuestion : Question(
+       	question == "Wet or Dry?"
+       	&& answer == "Underground")
+    then
+    	presenter.displayFinalScreen("Journey to the Center of the Earth Jules Verne", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 5 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Wet or Dry?"
+       	&& answer == "Under the sea Under the sea Darling it's better Down where it's wetter")
+    then
+    	presenter.displayFinalScreen("20, 000 Leagues Under The Sea Jules Verne", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 6"
+    when
+       	previousQuestion : Question(
+       	question == "Don't you mean under the ground?"
+       	&& answer == "I said on, smart guy.")
+    then
+    	insert (resolveQuestion(
+    	"Politics, Religion, or Philosophy?", 
+    	new String[]{"I think therefore I am.", 
+    	"Read my lips ...", 
+    	"Tell me the good word.", 
+    	"These things aren't polite to talk about in company. Don't you guys write about time travel or something?"}, 
+    	presenter));
+end
+
+rule "SciFi 6 End"
+    when
+       	previousQuestion : Question(
+       	question == "Politics, Religion, or Philosophy?"
+       	&& answer == "I think therefore I am.")
+    then
+    	presenter.displayFinalScreen("Do Androids Dream of Electric Sheep? Philip K. Dick", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 7"
+    when
+       	previousQuestion : Question(
+       	question == "Politics, Religion, or Philosophy?"
+       	&& answer == "Read my lips ...")
+    then
+    	insert (resolveQuestion(
+    	"What's your interest?", 
+    	new String[]{"Feminism", 
+    	"Communism"}, 
+    	presenter));
+end
+
+rule "SciFi 7 End"
+    when
+       	previousQuestion : Question(
+       	question == "What's your interest?"
+       	&& answer == "Feminism")
+    then
+    	presenter.displayFinalScreen("The Left Hand of Darkness Ursula K. LeGuin", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 7 End2"
+    when
+       	previousQuestion : Question(
+       	question == "What's your interest?"
+       	&& answer == "Communism")
+    then
+    	presenter.displayFinalScreen("The Dispossesed Ursula K. LeGuin", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 8"
+    when
+       	previousQuestion : Question(
+       	question == "Politics, Religion, or Philosophy?"
+       	&& answer == "Tell me the good word.")
+    then
+    	insert (resolveQuestion(
+    	"Pick your poision.", 
+    	new String[]{"Catholicism", 
+    	"Humanism"}, 
+    	presenter));
+end
+
+rule "SciFi 8 End"
+    when
+       	previousQuestion : Question(
+       	question == "Pick your poision."
+       	&& answer == "Catholicism")
+    then
+    	presenter.displayFinalScreen("A Canticle for Leibowitz Walter M. Miller Jr.", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 8 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Pick your poision."
+       	&& answer == "Humanism")
+    then
+    	presenter.displayFinalScreen("Stranger in a Strange Land Rober A. Heinlein", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 9"
+    when
+       	previousQuestion : Question(
+       	question == "Politics, Religion, or Philosophy?"
+       	&& answer == "These things aren't polite to talk about in company. Don't you guys write about time travel or something?")
+    then
+    	insert (resolveQuestion(
+    	"Sure do. Modern or classic?", 
+    	new String[]{"Classic", 
+    	"Modern",
+    	"All right, all right... I'm a bit out of my comfort zone. Got a nice mystery or a thriller?"}, 
+    	presenter));
+end
+
+rule "SciFi 9 End"
+    when
+       	previousQuestion : Question(
+       	question == "Sure do. Modern or classic?"
+       	&& answer == "Classic")
+    then
+    	presenter.displayFinalScreen("The Time Machine H.G. Wells", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 9 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Sure do. Modern or classic?"
+       	&& answer == "Modern")
+    then
+    	presenter.displayFinalScreen("Doomsday Book Connie Willis", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 10"
+    when
+       	previousQuestion : Question(
+       	question == "Sure do. Modern or classic?"
+       	&& answer == "All right, all right... I'm a bit out of my comfort zone. Got a nice mystery or a thriller?")
+    then
+    	insert (resolveQuestion(
+    	"So then?", 
+    	new String[]{"Classic", 
+    	"Mystery",
+    	"Thriller"},
+    	presenter));
+end
+
+rule "SciFi 10 End"
+    when
+       	previousQuestion : Question(
+       	question == "So then?"
+       	&& answer == "Mystery")
+    then
+    	presenter.displayFinalScreen("The Caves of Steel Isaac Asimov", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 10 End2"
+    when
+       	previousQuestion : Question(
+       	question == "So then?"
+       	&& answer == "Thriller")
+    then
+    	presenter.displayFinalScreen("Lucifer's Hammer Larry Niven & Jerry Pournelle", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 11"
+    when
+       	previousQuestion : Question(
+       	question == "Ready to blast into space?"
+       	&& answer == "The start are my destination (Can't believe they left that one off.)")
+    then
+    	insert (resolveQuestion(
+    	"War Buff?", 
+    	new String[]{"I watch the military channel exclusively.", 
+    	"But what I'm really after is exploring the galaxy.",
+    	"But I'm interested in first contact."},
+    	presenter));
+end
+
+rule "SciFi 12"
+    when
+       	previousQuestion : Question(
+       	question == "War Buff?"
+       	&& answer == "But I'm interested in first contact.")
+    then
+    	    	insert (resolveQuestion(
+    	"What kind of aliens would you like?", 
+    	new String[]{"Hostile", 
+    	"Absent",
+    	"Peaceful",
+    	"Fatherly",
+    	"Prodigious Breeders"},
+    	presenter));
+end
+
+rule "SciFi 12 End"
+    when
+       	previousQuestion : Question(
+       	question == "What kind of aliens would you like?"
+       	&& answer == "Hostile")
+    then
+    	presenter.displayFinalScreen("War of the Worlds H.G Wells", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 12 End2"
+    when
+       	previousQuestion : Question(
+       	question == "What kind of aliens would you like?"
+       	&& answer == "Absent")
+    then
+    	presenter.displayFinalScreen("Rendezvous with Rama Arthur C. Clarke", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 12 End3"
+    when
+       	previousQuestion : Question(
+       	question == "What kind of aliens would you like?"
+       	&& answer == "Peaceful")
+    then
+    	presenter.displayFinalScreen("Childhood's End Artur C. Clarke", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 12 End4"
+    when
+       	previousQuestion : Question(
+       	question == "What kind of aliens would you like?"
+       	&& answer == "Fatherly")
+    then
+    	presenter.displayFinalScreen("Contact Carl Sagan", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 12 End5"
+    when
+       	previousQuestion : Question(
+       	question == "What kind of aliens would you like?"
+       	&& answer == "Prodigious Breeders")
+    then
+    	presenter.displayFinalScreen("The Mote in God's Eye Larry Niven & Jerry Pournelle", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 13"
+    when
+       	previousQuestion : Question(
+       	question == "War Buff?"
+       	&& answer == "I watch the military channel exclusively.")
+    then
+    	    	insert (resolveQuestion(
+    	"Who shall we fight?", 
+    	new String[]{"Everyone", 
+    	"Human vs. Human",
+    	"Spiritual vs. Colonial",
+    	"Man vs. Alien",
+    	"Man vs Far Away Bugs",
+    	"Man vs Bugs"},
+    	presenter));
+end
+
+rule "SciFi 13 End"
+    when
+       	previousQuestion : Question(
+       	question == "Who shall we fight?"
+       	&& answer == "Everyone")
+    then
+    	presenter.displayFinalScreen("Old Man's War John Scalzi", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 13 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Who shall we fight?"
+       	&& answer == "Human vs. Human")
+    then
+    	presenter.displayFinalScreen("The Moon is a Harsh Mistress Robert A. Heinlein", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 13 End3"
+    when
+       	previousQuestion : Question(
+       	question == "Who shall we fight?"
+       	&& answer == "Spiritual vs. Colonial")
+    then
+    	presenter.displayFinalScreen("The Dune Chronicles Frank Herbert", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 13 End4"
+    when
+       	previousQuestion : Question(
+       	question == "Who shall we fight?"
+       	&& answer == "Man vs. Alien")
+    then
+    	presenter.displayFinalScreen("The Forever War Joe Haldeman", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 13 End5"
+    when
+       	previousQuestion : Question(
+       	question == "Who shall we fight?"
+       	&& answer == "Man vs Far Away Bugs")
+    then
+    	presenter.displayFinalScreen("Ender's Game Orson Scott Card", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 13 End6"
+    when
+       	previousQuestion : Question(
+       	question == "Who shall we fight?"
+       	&& answer == "Man vs Bugs")
+    then
+    	presenter.displayFinalScreen("Starship Troopers Robert A. Heinlein", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 14"
+    when
+       	previousQuestion : Question(
+       	question == "War Buff?"
+       	&& answer == "But what I'm really after is exploring the galaxy.")
+    then
+    	    	insert (resolveQuestion(
+    	"A galaxy far, far away?", 
+    	new String[]{"Preferably long ago, as well", 
+    	"I see what you did there."},
+    	presenter));
+end
+
+rule "SciFi 14 End"
+    when
+       	previousQuestion : Question(
+       	question == "A galaxy far, far away?"
+       	&& answer == "Preferably long ago, as well")
+    then
+    	presenter.displayFinalScreen("The Thrawn Trilogy Timothy Zahn", "src/main/resources/scifi.jpg");
+end
+
+rule "SciFi 15 End"
+    when
+       	previousQuestion : Question(
+       	question == "A galaxy far, far away?"
+       	&& answer == "I see what you did there.")
+    then
+    	presenter.displayFinalScreen("No more branching, sorry", "src/main/resources/underconstruction.png");
 end
 

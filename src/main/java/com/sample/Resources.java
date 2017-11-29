@@ -8,6 +8,7 @@ public interface Resources {
 		String beginButtonDesc = "Rozpocznij przygodę";
 		String exitButtonDesc = "Zakończ przygodę";
 		String logButtonDesc = "Zapisz wynik do pliku";
+		String retryButtonDesc = "Spróbuj ponownie";
 		String saveFileDir = "src/";
 		String saveFileName = "log.txt";
 	}

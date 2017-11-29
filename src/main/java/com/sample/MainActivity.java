@@ -10,8 +10,13 @@ import org.kie.api.runtime.KieSession;
  * This is a sample class to launch a rule.
  */
 public class MainActivity {
+	
 
     public static final void main(String[] args) {
+    	launch();
+    }
+    
+    public static void launch() {
         try {
             // load up the knowledge base
 	        KieServices ks = KieServices.Factory.get();
@@ -26,5 +31,6 @@ public class MainActivity {
             t.printStackTrace();
         }
     }
+
 
 }

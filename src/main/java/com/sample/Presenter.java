@@ -47,7 +47,15 @@ public class Presenter {
 						e.printStackTrace();
 					}
 					break;
+				case(Resources.Strings.retryButtonDesc):
+				view.dispose();
+				MainActivity.launch();
+				break;
+					
 				}
+				
+				
+
 			}
 		}, Resources.Strings.welcomeText, new String[] {Resources.Strings.beginButtonDesc, Resources.Strings.exitButtonDesc});
 		model = new Model();
