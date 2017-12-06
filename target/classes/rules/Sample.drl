@@ -279,22 +279,130 @@ rule "Fantasy 10"
     	presenter));
 end
 
-rule "Fantasy 10 End"
+rule "Fantasy 11"
     when
        	previousQuestion : Question(
        	question == "How about some alternate history?" 
-       	&& answer == "I have allergies.")
+       	&& answer == "I'm a revisionist myself.")
     then
-    	presenter.displayFinalScreen("No more branching, sorry", "src/main/resources/underconstruction.png");
+    	insert (resolveQuestion(
+    	"Romance or warring magicans?", 
+    	new String[]{"Romance", 
+    	"Magicians"}, 
+    	presenter));
 end
 
-rule "Fantasy 10 End1"
+rule "Fantasy 11 End"
+    when
+       	previousQuestion : Question(
+       	question == "Romance or warring magicans?" 
+       	&& answer == "Romance")
+    then
+    	presenter.displayFinalScreen("Kushiel's Legacy Series Jacqueline Carey", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 11 End2"
+    when
+       	previousQuestion : Question(
+       	question == "Romance or warring magicans?" 
+       	&& answer == "Magicians")
+    then
+    	presenter.displayFinalScreen("Jonathan Strange & Mr. Norrell Susanna Clarke", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 12"
     when
        	previousQuestion : Question(
        	question == "How about some alternate history?" 
        	&& answer == "I never paid any attention in history class.")
     then
-    	presenter.displayFinalScreen("No more branching, sorry", "src/main/resources/underconstruction.png");
+    	insert (resolveQuestion(
+    	"Ready to dive into a series?", 
+    	new String[]{"How about an episodic series?", 
+    	"The other two options ended with some strange choices",
+    	"Let's keep this casual."}, 
+    	presenter));
+end
+
+rule "Fantasy 13"
+    when
+       	previousQuestion : Question(
+       	question == "Ready to dive into a series?" 
+       	&& answer == "How about an episodic series?")
+    then
+    	insert (resolveQuestion(
+    	"What's your pleasure?", 
+    	new String[]{"Bureaucratic Satire", 
+    	"Religious Satire",
+    	"Fun with Puns"}, 
+    	presenter));
+end
+
+rule "Fantasy 13 End"
+    when
+       	previousQuestion : Question(
+       	question == "What's your pleasure?" 
+       	&& answer == "Bureaucratic Satire")
+    then
+    	presenter.displayFinalScreen("Going Postal Terry Pratchett", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 13 End2"
+    when
+       	previousQuestion : Question(
+       	question == "What's your pleasure?" 
+       	&& answer == "Religious Satire")
+    then
+    	presenter.displayFinalScreen("Small Gods Terry Pratchett", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 13 End3"
+    when
+       	previousQuestion : Question(
+       	question == "What's your pleasure?" 
+       	&& answer == "Fun with Puns")
+    then
+    	presenter.displayFinalScreen("Xanth Series Piers Anthony", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 14"
+    when
+       	previousQuestion : Question(
+       	question == "Ready to dive into a series?" 
+       	&& answer == "Let's keep this casual.")
+    then
+    	insert (resolveQuestion(
+    	"With pirates or without?", 
+    	new String[]{"Pirates Please.", 
+    	"No pirates here. No siree, Bob. No pirates at all"}, 
+    	presenter));
+end
+
+rule "Fantasy 14 End"
+    when
+       	previousQuestion : Question(
+       	question == "With pirates or without?" 
+       	&& answer == "Pirates Please.")
+    then
+    	presenter.displayFinalScreen("Stardust Neil Gaiman", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 14 End2"
+    when
+       	previousQuestion : Question(
+       	question == "With pirates or without?" 
+       	&& answer == "No pirates here. No siree, Bob. No pirates at all")
+    then
+    	presenter.displayFinalScreen("The Princess Bride William Goldman", "src/main/resources/fantasy.jpg");
+end
+
+rule "Fantasy 15 End"
+    when
+       	previousQuestion : Question(
+       	question == "Ready to dive into a series?" 
+       	&& answer == "The other two options ended with some strange choices")
+    then
+    	presenter.displayFinalScreen("A Song of Ice and Fire George R.R Martin", "src/main/resources/underconstruction.png");
 end
 
 rule "SciFi 1"
